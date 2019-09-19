@@ -1,0 +1,124 @@
+<html>
+
+<head>
+    <link rel="stylesheet"
+        href="grid.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap"
+        rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="pnp-grid-container">
+        <div class="pnp-image-container"
+            style="background-image:url('https://player.fergl.ie/media/iseeyou.jpeg')">
+            <a href="#"
+                class="pnp-thumb-link-wrapper">
+                <div class="pnp-thumb"></div>
+            </a>
+        </div>
+        <div class="pnp-controls-container">
+            <div class="icon">
+                <svg viewBox="0 0 60 60">
+                    <title>play icon</title>
+                    <g>
+                        <path class="play"
+                            fill="#000000"
+                            d="M24.89,40.84c-0.37,0.22-0.83,0.23-1.2,0.02s-0.6-0.61-0.6-1.04V20.2c0-0.43,0.23-0.83,0.6-1.04 c0.37-0.21,0.83-0.21,1.2,0.02l16.35,9.81c0.36,0.21,0.58,0.6,0.58,1.02s-0.22,0.81-0.58,1.02L24.89,40.84z" />
+                        <path class="pause hidden"
+                            fill="#000000"
+                            d="M28.03,19.06v21.88c0,0.86-0.7,1.56-1.56,1.56h-3.12c-0.86,0-1.56-0.7-1.56-1.56V19.06 c0-0.86,0.7-1.56,1.56-1.56h3.12C27.33,17.5,28.03,18.2,28.03,19.06z M38.46,19.06v21.88c0,0.86-0.7,1.56-1.56,1.56h-3.12 c-0.86,0-1.56-0.7-1.56-1.56V19.06c0-0.86,0.7-1.56,1.56-1.56h3.12C37.76,17.5,38.46,18.2,38.46,19.06z" />
+                        <path class="stroke-bg"
+                            fill="none"
+                            stroke="#999"
+                            stroke-width="4"
+                            d="M30,7C17.32,7,7,17.32,7,30 c0,12.68,10.32,23,23,23c12.68,0,23-10.32,23-23C53,17.32,42.68,7,30,7z" />
+                        <path class="stroke"
+                            fill="none"
+                            stroke="#000000"
+                            stroke-width="4"
+                            d="M30,7C17.32,7,7,17.32,7,30 c0,12.68,10.32,23,23,23c12.68,0,23-10.32,23-23C53,17.32,42.68,7,30,7z" />
+                    </g>
+                </svg>
+            </div>
+        </div>
+        <div class="pnp-details-container">
+            <div class="details-wrapper">
+                <span class="details-wrapper-title"
+                    style="color: rgb(89, 61, 17);">I See You</span>
+                <span class="details-wrapper-subtitle"
+                    style="color: rgb(186, 156, 82);">
+                    <a target="_blank"
+                        href="">Argle Bargle Foo Ferra
+                    </a>
+                </span>
+            </div>
+        </div>
+        <div class="pnp-scrub-container">
+            <div id="pnp-scrub"></div>
+        </div>
+        <div class="pnp-volume-container">Volume</div>
+        <script src="https://unpkg.com/wavesurfer.js"></script>
+
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+            crossorigin="anonymous"></script>
+        <script>
+            var playState = 'paused';
+            window.addEventListener('load', () => { // This gets the exact lenght of the stroke (.stroke) around the play icon
+                let wavesurfer = WaveSurfer.create({
+                    container: "#pnp-scrub",
+                    height: 60,
+                    normalize: true,
+                    barWidth: 3,
+                    scrollable: false,
+                    mediaControls: false,
+                    backend: 'MediaElement',
+                    waveColor: 'violet',
+                    progressColor: 'purple'
+                });
+
+                wavesurfer.load(
+                    'data/short.mp3'
+                );
+                var stroke = document.querySelector('.stroke');
+                var length = stroke.getTotalLength();
+
+                // This logs the stroke lenght to the (devtools) console when run
+                console.log(length);
+
+                // This sets the strokes dasharray and offset to be exactly the length of the stroke
+                stroke.style.strokeDasharray = length;
+                stroke.style.strokeDashoffset = length;
+
+                // Toggle the animation-play-state of the ".stroke" on clicking the ".icon" -container
+                var animationDiv = document.querySelector('.stroke');
+                var clickDiv = document.querySelector('.icon');
+                var play = document.querySelector('.play');
+                var pause = document.querySelector('.pause');
+
+                // Change the animation property "animation-play-state" of the ".stroke" from "running" to "paused" on click
+                clickDiv.addEventListener('click', function() {
+                    if (playState === 'paused') {
+                        wavesurfer.play();
+                        playState = 'playing';
+                        play.classList.add('hidden');
+                        pause.classList.remove('hidden');
+                        // animationDiv.style.webkitAnimationPlayState = "running";
+                    } else if (playState = 'playing') {
+                        wavesurfer.pause();
+                        playState = 'paused';
+                        pause.classList.add('hidden');
+                        play.classList.remove('hidden');
+                        // animationDiv.style.webkitAnimationPlayState = "paused"; // Logging the animation-play-state to the console:
+                    }
+                })
+            });
+        </script>
+</body>
+
+</html>

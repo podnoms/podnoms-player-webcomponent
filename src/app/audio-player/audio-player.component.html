@@ -1,21 +1,13 @@
-<div class="player-ui-wrapper"
-     [style.backgroundColor]="backgroundColour">
-    <div #player
-         class="audioplayer-tobe pnplayer_footer button-aspect-noir button-aspect-noir--filled"
-         style="width:100%; "
-         [attr.data-pcm]="'[' + pcm + ']'"
-         [attr.data-thumb]="imageUrl"
-         [attr.data-thumb_link]="imageUrl"
-         [attr.data-source]="audioUrl"
-         data-type="mediafile">
-        <div class="meta-artist">
-            <span class="the-artist"
-                  [style.color]="titleColour">{{title}}</span>
-            <span class="the-name"
-                  [style.color]="subTitleColour">
-                <a [href]="target"
-                   target="_blank">{{ subTitle }}</a>
-            </span>
+<div class="flex-container">
+    <div class="flex-1 col">
+        <div class="audio-thumb">
         </div>
     </div>
+    <div #player
+        class="flex-2 col"></div>
+    <div class="flex-3 col">3</div>
 </div>
+
+
+<button class="btn btn-default"
+    (click)="play()">Play</button>

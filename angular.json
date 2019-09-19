@@ -24,13 +24,12 @@
                         "tsConfig": "tsconfig.app.json",
                         "aot": true,
                         "assets": ["src/favicon.ico", "src/assets"],
-                        "styles": ["src/styles.scss", "src/assets/pnplayer/audioplayer.scss"],
+                        "styles": ["src/styles/styles.scss"],
                         "scripts": [
                             {
                                 "input": "node_modules/document-register-element/build/document-register-element.js"
                             },
-                            "node_modules/jquery/dist/jquery.js",
-                            "src/assets/pnplayer/audioplayer.js"
+                            "node_modules/jquery/dist/jquery.js"
                         ]
                     },
                     "configurations": {
@@ -87,7 +86,9 @@
                         "karmaConfig": "karma.conf.js",
                         "assets": ["src/favicon.ico", "src/assets"],
                         "styles": ["src/styles.scss"],
-                        "scripts": []
+                        "scripts": [
+                            "node_modules/wavesurfer.js/dist/wavesurfer.min.js"
+                        ]
                     }
                 },
                 "lint": {
