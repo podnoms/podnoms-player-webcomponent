@@ -27,6 +27,7 @@
                     <title>play icon</title>
                     <g>
                         <path class="play"
+                            [style.visible]="playState===PlayState."
                             fill="#000000"
                             d="M24.89,40.84c-0.37,0.22-0.83,0.23-1.2,0.02s-0.6-0.61-0.6-1.04V20.2c0-0.43,0.23-0.83,0.6-1.04 c0.37-0.21,0.83-0.21,1.2,0.02l16.35,9.81c0.36,0.21,0.58,0.6,0.58,1.02s-0.22,0.81-0.58,1.02L24.89,40.84z" />
                         <path class="pause hidden"
@@ -62,63 +63,64 @@
             <div id="pnp-scrub"></div>
         </div>
         <div class="pnp-volume-container">Volume</div>
-        <script src="https://unpkg.com/wavesurfer.js"></script>
+    </div>
+    <script src="https://unpkg.com/wavesurfer.js"></script>
 
-        <script src="https://code.jquery.com/jquery-3.4.1.min.js"
-            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
-            crossorigin="anonymous"></script>
-        <script>
-            var playState = 'paused';
-            window.addEventListener('load', () => { // This gets the exact lenght of the stroke (.stroke) around the play icon
-                let wavesurfer = WaveSurfer.create({
-                    container: "#pnp-scrub",
-                    height: 60,
-                    normalize: true,
-                    barWidth: 3,
-                    scrollable: false,
-                    mediaControls: false,
-                    backend: 'MediaElement',
-                    waveColor: 'violet',
-                    progressColor: 'purple'
-                });
-
-                wavesurfer.load(
-                    'data/short.mp3'
-                );
-                var stroke = document.querySelector('.stroke');
-                var length = stroke.getTotalLength();
-
-                // This logs the stroke lenght to the (devtools) console when run
-                console.log(length);
-
-                // This sets the strokes dasharray and offset to be exactly the length of the stroke
-                stroke.style.strokeDasharray = length;
-                stroke.style.strokeDashoffset = length;
-
-                // Toggle the animation-play-state of the ".stroke" on clicking the ".icon" -container
-                var animationDiv = document.querySelector('.stroke');
-                var clickDiv = document.querySelector('.icon');
-                var play = document.querySelector('.play');
-                var pause = document.querySelector('.pause');
-
-                // Change the animation property "animation-play-state" of the ".stroke" from "running" to "paused" on click
-                clickDiv.addEventListener('click', function() {
-                    if (playState === 'paused') {
-                        wavesurfer.play();
-                        playState = 'playing';
-                        play.classList.add('hidden');
-                        pause.classList.remove('hidden');
-                        // animationDiv.style.webkitAnimationPlayState = "running";
-                    } else if (playState = 'playing') {
-                        wavesurfer.pause();
-                        playState = 'paused';
-                        pause.classList.add('hidden');
-                        play.classList.remove('hidden');
-                        // animationDiv.style.webkitAnimationPlayState = "paused"; // Logging the animation-play-state to the console:
-                    }
-                })
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+        crossorigin="anonymous"></script>
+    <script>
+        var playState = 'paused';
+        window.addEventListener('load', () => { // This gets the exact lenght of the stroke (.stroke) around the play icon
+            let wavesurfer = WaveSurfer.create({
+                container: "#pnp-scrub",
+                height: 60,
+                normalize: true,
+                barWidth: 3,
+                scrollable: false,
+                mediaControls: false,
+                backend: 'MediaElement',
+                waveColor: 'violet',
+                progressColor: 'purple'
             });
-        </script>
+
+            wavesurfer.load(
+                'data/short.mp3'
+            );
+            var stroke = document.querySelector('.stroke');
+            var length = stroke.getTotalLength();
+
+            // This logs the stroke lenght to the (devtools) console when run
+            console.log(length);
+
+            // This sets the strokes dasharray and offset to be exactly the length of the stroke
+            stroke.style.strokeDasharray = length;
+            stroke.style.strokeDashoffset = length;
+
+            // Toggle the animation-play-state of the ".stroke" on clicking the ".icon" -container
+            var animationDiv = document.querySelector('.stroke');
+            var clickDiv = document.querySelector('.icon');
+            var play = document.querySelector('.play');
+            var pause = document.querySelector('.pause');
+
+            // Change the animation property "animation-play-state" of the ".stroke" from "running" to "paused" on click
+            clickDiv.addEventListener('click', function() {
+                if (playState === 'paused') {
+                    wavesurfer.play();
+                    playState = 'playing';
+                    play.classList.add('hidden');
+                    pause.classList.remove('hidden');
+                    // animationDiv.style.webkitAnimationPlayState = "running";
+                } else if (playState = 'playing') {
+                    wavesurfer.pause();
+                    playState = 'paused';
+                    pause.classList.add('hidden');
+                    play.classList.remove('hidden');
+                    // animationDiv.style.webkitAnimationPlayState = "paused"; // Logging the animation-play-state to the console:
+                }
+            })
+        });
+    </script>
 </body>
 
 </html>

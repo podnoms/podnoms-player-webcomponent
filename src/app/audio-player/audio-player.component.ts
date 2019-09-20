@@ -13,8 +13,7 @@ import { HttpClient } from '@angular/common/http';
 import { PlayerRendererService } from './services/player-renderer.service';
 
 import * as WaveSurfer from 'wavesurfer.js';
-
-declare var pnplayer_init: any;
+import { PlayState } from '../data/playstates';
 
 @Component({
     // tslint:disable-next-line: component-selector
@@ -24,6 +23,8 @@ declare var pnplayer_init: any;
     encapsulation: ViewEncapsulation.ShadowDom
 })
 export class AudioPlayerComponent implements AfterViewInit {
+    playState: PlayState = PlayState.Stopped;
+
     wavesurfer: any;
     pcm: string = '';
     initialised: boolean = false;
@@ -66,7 +67,7 @@ export class AudioPlayerComponent implements AfterViewInit {
         requestAnimationFrame(() => {
             this.wavesurfer = WaveSurfer.create({
                 container: this.player.nativeElement,
-                height: 100,
+                height: 58,
                 normalize: true,
                 barWidth: 3,
                 scrollable: false,
@@ -93,12 +94,21 @@ export class AudioPlayerComponent implements AfterViewInit {
     }
     play() {
         if (this.wavesurfer) {
-            this.wavesurfer.play();
+            if (
+                this.playState === PlayState.Paused ||
+                this.playState === PlayState.Stopped
+            ) {
+                this.wavesurfer.play();
+                this.playState = PlayState.Playing;
+            } else {
+                this.wavesurfer.pause();
+                this.playState = PlayState.Paused;
+            }
         }
     }
     _generateColourWithReflect(colour: string): CanvasGradient {
         const ctx = document.createElement('canvas').getContext('2d');
-        const reflectScale = 0.65;
+        const reflectScale = 0.4;
 
         const rgba = this._cssColorToRgba(colour);
         const rgbaReflect = this._cssColorToRgba(

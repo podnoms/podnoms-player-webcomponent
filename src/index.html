@@ -1,41 +1,28 @@
-        <script>
-            window.addEventListener('load', () => {
-                const audioPlayer = document.querySelector('audio-player');
-                audioPlayer.addEventListener('connected', () => {
-                    console.log('Audio Player', 'connected');
-                });
-                audioPlayer.addEventListener('audioplay', (event) => {
-                    console.log('Audio Player', 'audioplay', event);
-                });
-                audioPlayer.addEventListener('audiopause', (event) => {
-                    console.log('Audio Player', 'audiopause', event);
-                });
-                audioPlayer.addEventListener('audioend', (event) => {
-                    console.log('Audio Player', 'audiopause', event);
-                });
-            });
-        </script>
-        <audio-player audio-url="assets/data/long.mp3"
-            pcm-url="assets/data/long.json"
-            image-url="https://player.fergl.ie/media/iseeyou.jpeg"
-            title="I See You"
-            sub-title="Farty McFartle"
-            background-colour="#FFFFFF"
-            title-colour="#593D11"
-            sub-title-colour="#BA9C52"
-            wave-colour="#3a6272"
-            wave-colour-progress="#f3c121">
-        </audio-player>
-        <!-- <audio-player id="audioPlayer"
-                              audio-url="https://podnomscdn.blob.core.windows.net/audio/25a33fb1-428c-4ee4-667a-08d72c897f8b.mp3"
-                              pcm-url="https://podnomscdn.blob.core.windows.net/waveforms/25a33fb1-428c-4ee4-667a-08d72c897f8b.json"
-                              title="CORRECTY"
-                              sub-title="CORRECTINGTONS"
-                              background-colour="FFFFFF"
-                              title-colour="593D11"
-                              sub-title-colour="BA9C52"
-                              wave-colour="3a6272"
-                              wave-colour-progress="f3c121"
-                              target="http://google.com"
-                              image-url="https://cdn-l.podnoms.com/images/entry/25a33fb1-428c-4ee4-667a-08d72c897f8b.jpg?width=725&height=748">
-                </audio-player> -->
+<script>
+    window.addEventListener('load', () => {
+        const audioPlayer = document.querySelector('audio-player');
+        audioPlayer.addEventListener('connected', () => {
+            console.log('Audio Player', 'connected');
+        });
+        audioPlayer.addEventListener('audioplay', (event) => {
+            console.log('Audio Player', 'audioplay', event);
+        });
+        audioPlayer.addEventListener('audiopause', (event) => {
+            console.log('Audio Player', 'audiopause', event);
+        });
+        audioPlayer.addEventListener('audioend', (event) => {
+            console.log('Audio Player', 'audiopause', event);
+        });
+    });
+</script>
+<audio-player audio-url="assets/data/long.mp3"
+    pcm-url="assets/data/long.json"
+    image-url="https://player.fergl.ie/media/iseeyou.jpeg"
+    title="I See You"
+    sub-title="Farty McFartle"
+    background-colour="#FFFFFF"
+    title-colour="#593D11"
+    sub-title-colour="#BA9C52"
+    wave-colour="#3a6272"
+    wave-colour-progress="#f3c121">
+</audio-player>

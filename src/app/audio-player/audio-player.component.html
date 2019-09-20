@@ -1,13 +1,32 @@
-<div class="flex-container">
-    <div class="flex-1 col">
-        <div class="audio-thumb">
+<div class="pnp-grid-container">
+    <div class="pnp-image-container"
+        style="background-image:url('https://player.fergl.ie/media/iseeyou.jpeg')">
+        <a href="#"
+            class="pnp-thumb-link-wrapper">
+            <div class="pnp-thumb"></div>
+        </a>
+    </div>
+    <div class="pnp-controls-container"
+        (click)="play()">
+        <app-play-button [playState]="playState"></app-play-button>
+    </div>
+    <div class="pnp-details-container">
+        <div class="details-wrapper">
+            <span class="details-wrapper-title"
+                style="color: rgb(89, 61, 17);">I See You</span>
+            <span class="details-wrapper-subtitle"
+                style="color: rgb(186, 156, 82);">
+                <a target="_blank"
+                    href="">Argle Bargle Foo Ferra
+                </a>
+            </span>
         </div>
     </div>
-    <div #player
-        class="flex-2 col"></div>
-    <div class="flex-3 col">3</div>
+    <div class="pnp-scrub-container">
+        <div id="pnp-scrub"
+            #player></div>
+    </div>
+    <div class="pnp-volume-container">
+        <app-volume-slider></app-volume-slider>
+    </div>
 </div>
-
-
-<button class="btn btn-default"
-    (click)="play()">Play</button>
