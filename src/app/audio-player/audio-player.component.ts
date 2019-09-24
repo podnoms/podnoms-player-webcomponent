@@ -12,6 +12,7 @@ import { HttpClient } from '@angular/common/http';
 
 import * as WaveSurfer from 'wavesurfer.js';
 import { PlayState } from '../data/playstates';
+import { NGXLogger } from 'ngx-logger';
 
 @Component({
     // tslint:disable-next-line: component-selector
@@ -50,14 +51,14 @@ export class AudioPlayerComponent implements AfterViewInit {
     @Output() audioend: EventEmitter<any> = new EventEmitter<any>();
     currentVolume: number = 100;
 
-    constructor(private httpClient: HttpClient) {
+    constructor(private httpClient: HttpClient, private logger: NGXLogger) {
         this.currentVolume =
             parseFloat(localStorage.getItem('pnp-player__currentvolume')) ||
             this.currentVolume;
     }
 
     ngAfterViewInit() {
-        console.log(
+        this.logger.debug(
             'audio-player.component',
             'ngAfterViewInit',
             this.audioStart
@@ -66,6 +67,7 @@ export class AudioPlayerComponent implements AfterViewInit {
         requestAnimationFrame(() => {
             this.wavesurfer = WaveSurfer.create({
                 container: this.player.nativeElement,
+                // TODO: this is the magic number, needs to be propogated through CSS
                 height: 58,
                 normalize: true,
                 barWidth: 3,
@@ -78,11 +80,15 @@ export class AudioPlayerComponent implements AfterViewInit {
                 ),
                 reflection: false,
                 error: (e: any) => {
-                    console.log('audio-player.component', 'wave-error', e);
+                    this.logger.error(
+                        'audio-player.component',
+                        'wave-error',
+                        e
+                    );
                 }
             });
             this.wavesurfer.setVolume(this.currentVolume / 100);
-
+            this._createWavesurverEventHooks(this.wavesurfer);
             this.httpClient.get<any>(this.pcmUrl).subscribe(r => {
                 this.wavesurfer.backend.peaks = r.data.map(p => p / 128);
                 this.wavesurfer.drawBuffer();
@@ -109,10 +115,30 @@ export class AudioPlayerComponent implements AfterViewInit {
         }
     }
     onVolumeChanged(volume: number) {
-        console.log('audio-player.component', '');
+        this.logger.debug('audio-player.component', 'onVolumeChanged', volume);
         this.currentVolume = volume;
         this.wavesurfer.setVolume(volume / 100);
         localStorage.setItem('pnp-player__currentvolume', volume.toString());
+    }
+    _createWavesurverEventHooks(wavesurfer: any) {
+        // will hook element events into wavesurfer events rather than handling manually
+        wavesurfer.on('play', () => {
+            this.logger.debug('audio-player.component', 'play');
+            this.audioStart.emit();
+            this.audioplay.emit();
+        });
+        wavesurfer.on('ready', (e: any) => {
+            this.logger.debug('audio-player.component', 'play');
+            this.connected.emit();
+        });
+        wavesurfer.on('pause', (e: any) => {
+            this.logger.debug('audio-player.component', 'audiopause');
+            this.audiopause.emit();
+        });
+        wavesurfer.on('finish', (e: any) => {
+            this.logger.debug('audio-player.component', 'audioend');
+            this.audioend.emit();
+        });
     }
     _generateColourWithReflect(colour: string): CanvasGradient {
         const ctx = document.createElement('canvas').getContext('2d');

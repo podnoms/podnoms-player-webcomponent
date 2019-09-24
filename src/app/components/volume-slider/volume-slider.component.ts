@@ -24,10 +24,8 @@ export class VolumeSliderComponent implements AfterViewInit {
         this.volumeWidthActive = (this.volumeWidth / 100) * this.currentVolume;
     }
 
-    changeVolume($event) {
-        console.log('volume-slider.component', 'changeVolume', $event);
+    changeVolume($event: { offsetX: number }) {
         this.volumeWidthActive = $event.offsetX;
-
         this.volumeChanged.emit(
             (this.volumeWidthActive / this.volumeWidth) * 100
         );

@@ -1,4 +1,5 @@
-<div class="pnp-grid-container">
+<div class="pnp-grid-container"
+    [style.backgroundColor]="backgroundColour">
     <div class="pnp-image-container"
         style="background-image:url('https://player.fergl.ie/media/iseeyou.jpeg')">
         <a href="#"
@@ -25,6 +26,9 @@
     <div class="pnp-scrub-container">
         <div id="pnp-scrub"
             #player></div>
+        <div class="pnp-current-time"
+            style="left: 92px; top: 38.25px;">00:13</div>
+        <div class="pnp-audio-length">02:15</div>
     </div>
     <div class="pnp-volume-container">
         <app-volume-slider [currentVolume]="currentVolume"
