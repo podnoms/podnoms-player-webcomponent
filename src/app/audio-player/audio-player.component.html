@@ -13,11 +13,11 @@
     <div class="pnp-details-container">
         <div class="details-wrapper">
             <span class="details-wrapper-title"
-                style="color: rgb(89, 61, 17);">I See You</span>
+                [style.color]="titleColour">{{title}}</span>
             <span class="details-wrapper-subtitle"
-                style="color: rgb(186, 156, 82);">
+                [style.color]="subTitleColour">
                 <a target="_blank"
-                    href="">Argle Bargle Foo Ferra
+                    href="">{{subTitle}}
                 </a>
             </span>
         </div>
@@ -27,6 +27,7 @@
             #player></div>
     </div>
     <div class="pnp-volume-container">
-        <app-volume-slider></app-volume-slider>
+        <app-volume-slider [currentVolume]="currentVolume"
+            (volumeChanged)="onVolumeChanged($event)"></app-volume-slider>
     </div>
 </div>

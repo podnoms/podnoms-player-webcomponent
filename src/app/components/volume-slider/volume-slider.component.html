@@ -1,3 +1,10 @@
-<p>
-  volume-slider works!
-</p>
+<div class="controls-volume">
+    <div class="volumeicon"></div>
+    <div class="volume_static"
+        (click)="changeVolume($event)"
+        [style.width.px]="volumeWidth"></div>
+    <div class="volume_active"
+        #volume
+        [style.width.px]="volumeWidthActive"></div>
+    <div class="volume_cut"></div>
+</div>
