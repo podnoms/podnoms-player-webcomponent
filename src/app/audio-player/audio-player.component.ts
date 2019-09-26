@@ -22,7 +22,10 @@ import { NGXLogger } from 'ngx-logger';
     encapsulation: ViewEncapsulation.ShadowDom
 })
 export class AudioPlayerComponent implements AfterViewInit {
-    playState: PlayState = PlayState.Stopped;
+    public playState: PlayState = PlayState.Stopped;
+    public currentVolume: number = 100;
+    public currentPosition: number = 0;
+    public duration: number;
 
     wavesurfer: any;
     pcm: string = '';
@@ -41,15 +44,15 @@ export class AudioPlayerComponent implements AfterViewInit {
     @Input() subTitleColour: string;
     @Input() backgroundColour: string;
     @Input() volumeColour: string;
-    @Input() waveColour: string = '222222';
-    @Input() waveColourProgress: string = 'ea8c52';
+    @Input() waveColour: string;
+    @Input() waveColourProgress: string;
 
     @Output() audioStart: EventEmitter<any> = new EventEmitter<any>();
     @Output() connected: EventEmitter<any> = new EventEmitter<any>();
     @Output() audioplay: EventEmitter<any> = new EventEmitter<any>();
     @Output() audiopause: EventEmitter<any> = new EventEmitter<any>();
     @Output() audioend: EventEmitter<any> = new EventEmitter<any>();
-    currentVolume: number = 100;
+    @Output() audioProgress: EventEmitter<any> = new EventEmitter<any>();
 
     constructor(private httpClient: HttpClient, private logger: NGXLogger) {
         this.currentVolume =
@@ -58,12 +61,9 @@ export class AudioPlayerComponent implements AfterViewInit {
     }
 
     ngAfterViewInit() {
-        this.logger.debug(
-            'audio-player.component',
-            'ngAfterViewInit',
-            this.audioStart
-        );
-
+        this._intialisePlayer();
+    }
+    _intialisePlayer() {
         requestAnimationFrame(() => {
             this.wavesurfer = WaveSurfer.create({
                 container: this.player.nativeElement,
@@ -122,6 +122,11 @@ export class AudioPlayerComponent implements AfterViewInit {
     }
     _createWavesurverEventHooks(wavesurfer: any) {
         // will hook element events into wavesurfer events rather than handling manually
+        wavesurfer.on('audioprocess', e => {
+            // this.logger.debug('audio-player.component', 'audioprocess', e);
+            this.currentPosition = e;
+            this.audioProgress.emit(e);
+        });
         wavesurfer.on('play', () => {
             this.logger.debug('audio-player.component', 'play');
             this.audioStart.emit();
@@ -129,6 +134,12 @@ export class AudioPlayerComponent implements AfterViewInit {
         });
         wavesurfer.on('ready', (e: any) => {
             this.logger.debug('audio-player.component', 'play');
+            this.duration = this.wavesurfer.getDuration();
+            this.connected.emit();
+        });
+        wavesurfer.on('waveform-ready', () => {
+            this.logger.debug('audio-player.component', 'waveform-ready');
+            this.duration = this.wavesurfer.getDuration();
             this.connected.emit();
         });
         wavesurfer.on('pause', (e: any) => {
@@ -139,7 +150,11 @@ export class AudioPlayerComponent implements AfterViewInit {
             this.logger.debug('audio-player.component', 'audioend');
             this.audioend.emit();
         });
+        wavesurfer.on('redraw', () => {
+            this.logger.debug('audio-player.component', 'redraw');
+        });
     }
+
     _generateColourWithReflect(colour: string): CanvasGradient {
         const ctx = document.createElement('canvas').getContext('2d');
         const reflectScale = 0.4;

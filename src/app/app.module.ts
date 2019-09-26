@@ -8,12 +8,14 @@ import { createCustomElement } from '@angular/elements';
 import { AudioPlayerComponent } from './audio-player/audio-player.component';
 import { PlayButtonComponent } from './components/play-button/play-button.component';
 import { VolumeSliderComponent } from './components/volume-slider/volume-slider.component';
+import { AudioDurationPositionComponent } from './components/audio-duration-position/audio-duration-position.component';
 
 @NgModule({
     declarations: [
         AudioPlayerComponent,
         PlayButtonComponent,
-        VolumeSliderComponent
+        VolumeSliderComponent,
+        AudioDurationPositionComponent
     ],
     imports: [
         BrowserModule,
