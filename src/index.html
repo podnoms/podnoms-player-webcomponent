@@ -1,0 +1,28 @@
+<script>
+    window.addEventListener('load', () => {
+        const audioPlayer = document.querySelector('audio-player');
+        audioPlayer.addEventListener('connected', () => {
+            console.log('Audio Player', 'connected');
+        });
+        audioPlayer.addEventListener('audioplay', (event) => {
+            console.log('Audio Player', 'audioplay', event);
+        });
+        audioPlayer.addEventListener('audiopause', (event) => {
+            console.log('Audio Player', 'audiopause', event);
+        });
+        audioPlayer.addEventListener('audioend', (event) => {
+            console.log('Audio Player', 'audiopause', event);
+        });
+    });
+</script>
+<audio-player audio-url="assets/data/.prv/longer.mp3"
+    pcm-url="assets/data/.prv/longer.json"
+    image-url="https://cdn-l.podnoms.com/images/entry/25a33fb1-428c-4ee4-667a-08d72c897f8b.jpg?width=725&height=748"
+    title="I See You"
+    sub-title="Farty McFartle"
+    background-colour=""
+    title-colour="#8fac69"
+    sub-title-colour="#828699"
+    wave-colour="#9fb4c3"
+    wave-colour-progress="#828699">
+</audio-player>
