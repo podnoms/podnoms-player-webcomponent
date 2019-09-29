@@ -7,7 +7,7 @@ import {
 } from '@angular/core';
 
 @Component({
-    selector: 'app-audio-duration-position',
+    selector: 'pnp-audio-duration-position',
     templateUrl: './audio-duration-position.component.html',
     styleUrls: ['./audio-duration-position.component.scss']
 })

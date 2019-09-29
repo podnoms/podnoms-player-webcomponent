@@ -9,7 +9,7 @@
     </div>
     <div class="pnp-controls-container"
         (click)="play()">
-        <app-play-button [playState]="playState"></app-play-button>
+        <pnp-play-button [playState]="playState"></pnp-play-button>
     </div>
     <div class="pnp-details-container">
         <div class="details-wrapper">
@@ -26,21 +26,21 @@
     <div class="pnp-scrub-container">
         <div id="pnp-scrub"
             #player>
-            <app-audio-duration-position [top]="29"
+            <pnp-audio-duration-position [top]="29"
                 [background]="'#000000'"
                 [colour]="'#eee'"
-                [value]="currentPosition"></app-audio-duration-position>
-            <app-audio-duration-position [top]="29"
+                [value]="currentPosition"></pnp-audio-duration-position>
+            <pnp-audio-duration-position [top]="29"
                 [background]="'#FFFFFF'"
                 [colour]="'#000000'"
                 [right]="142"
-                [value]="duration"></app-audio-duration-position>
+                [value]="duration"></pnp-audio-duration-position>
         </div>
         <!--  -->
 
     </div>
     <div class="pnp-volume-container">
-        <app-volume-slider [currentVolume]="currentVolume"
-            (volumeChanged)="onVolumeChanged($event)"></app-volume-slider>
+        <pnp-volume-slider [currentVolume]="currentVolume"
+            (volumeChanged)="onVolumeChanged($event)"></pnp-volume-slider>
     </div>
 </div>

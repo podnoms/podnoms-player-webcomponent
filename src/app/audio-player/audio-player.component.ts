@@ -154,7 +154,6 @@ export class AudioPlayerComponent implements AfterViewInit {
             this.logger.debug('audio-player.component', 'redraw');
         });
     }
-
     _generateColourWithReflect(colour: string): CanvasGradient {
         const ctx = document.createElement('canvas').getContext('2d');
         const reflectScale = 0.4;
@@ -174,7 +173,6 @@ export class AudioPlayerComponent implements AfterViewInit {
         );
         return waveformGradient;
     }
-
     _alterColorForReflect(colour: string, amt: number) {
         let useHash = false;
 

@@ -8,7 +8,7 @@ import {
 } from '@angular/core';
 
 @Component({
-    selector: 'app-volume-slider',
+    selector: 'pnp-volume-slider',
     templateUrl: './volume-slider.component.html',
     styleUrls: ['./volume-slider.component.scss']
 })

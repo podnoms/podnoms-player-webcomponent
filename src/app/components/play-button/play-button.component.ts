@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { PlayState } from 'src/app/data/playstates';
 
 @Component({
-    selector: 'app-play-button',
+    selector: 'pnp-play-button',
     templateUrl: './play-button.component.html',
     styleUrls: ['./play-button.component.scss']
 })
