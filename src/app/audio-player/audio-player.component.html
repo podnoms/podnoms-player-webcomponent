@@ -26,15 +26,11 @@
     <div class="pnp-scrub-container">
         <div id="pnp-scrub"
             #player>
-            <app-audio-duration-position [top]="45"
-                [right]="0"
-                [value]="0"></app-audio-duration-position>
-            <app-audio-duration-position [top]="45"
-                [background]="'#FFFFFF'"
+            <app-audio-duration-position [top]="29"
+                [background]="'#000000'"
                 [colour]="'#eee'"
-                [right]="670"
                 [value]="currentPosition"></app-audio-duration-position>
-            <app-audio-duration-position [top]="45"
+            <app-audio-duration-position [top]="29"
                 [background]="'#FFFFFF'"
                 [colour]="'#000000'"
                 [right]="142"
@@ -44,7 +40,7 @@
 
     </div>
     <div class="pnp-volume-container">
-        <!-- <app-volume-slider [currentVolume]="currentVolume"
-            (volumeChanged)="onVolumeChanged($event)"></app-volume-slider> -->
+        <app-volume-slider [currentVolume]="currentVolume"
+            (volumeChanged)="onVolumeChanged($event)"></app-volume-slider>
     </div>
 </div>

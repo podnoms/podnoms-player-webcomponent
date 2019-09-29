@@ -74,10 +74,10 @@ export class AudioPlayerComponent implements AfterViewInit {
                 scrollable: false,
                 mediaControls: false,
                 backend: 'MediaElement',
-                progressColor: this._generateColourWithReflect(this.waveColour),
-                waveColor: this._generateColourWithReflect(
+                progressColor: this._generateColourWithReflect(
                     this.waveColourProgress
                 ),
+                waveColor: this._generateColourWithReflect(this.waveColour),
                 reflection: false,
                 error: (e: any) => {
                     this.logger.error(
