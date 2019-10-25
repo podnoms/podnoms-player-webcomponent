@@ -7,18 +7,20 @@ import { CommonModule } from '@angular/common';
 import { createCustomElement } from '@angular/elements';
 import { AudioPlayerWrapperComponent } from './audio-player/audio-player-wrapper.component';
 import { NgxAudioplayerModule } from '@podnoms/ngx-audioplayer';
+import { environment } from 'src/environments/environment';
 
 @NgModule({
-    declarations: [
-        AudioPlayerWrapperComponent,
-    ],
+    declarations: [AudioPlayerWrapperComponent],
     imports: [
         BrowserModule,
         HttpClientModule,
         CommonModule,
         LoggerModule.forRoot({
-            level: NgxLoggerLevel.DEBUG,
-            serverLogLevel: NgxLoggerLevel.ERROR
+            level: !environment.production
+                ? NgxLoggerLevel.DEBUG
+                : NgxLoggerLevel.OFF,
+            // serverLogLevel
+            serverLogLevel: NgxLoggerLevel.OFF
         }),
         NgxAudioplayerModule
     ],
